@@ -1,395 +1,1262 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Josiah Farinacci | Mechanical Engineering Portfolio</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-
+<title>Josiah Farinacci | Mechanical Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #080808;
+  --surface: #111111;
+  --surface2: #181818;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.14);
+  --text: #f0f0f0;
+  --muted: #888;
+  --accent: #4a9eff;
+  --accent2: #2d7fe0;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
 }
 
-html{
-    scroll-behavior:smooth;
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 256px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
 }
 
-body{
-    font-family:'Inter',sans-serif;
-    background:#090909;
-    color:white;
-    overflow-x:hidden;
+/* ── GRID BG ── */
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* Navigation */
+/* ── NAV ── */
+nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  padding: 24px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s, backdrop-filter 0.4s;
+}
+nav.scrolled {
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: var(--text);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--text); }
 
-nav{
-    position:fixed;
-    width:100%;
-    top:0;
-    z-index:1000;
-    backdrop-filter:blur(10px);
-    background:rgba(0,0,0,0.65);
-    padding:20px 8%;
+/* ── HERO ── */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 6% 8vh;
+  overflow: hidden;
+}
+.hero-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5.5rem, 13vw, 14rem);
+  line-height: 0.88;
+  letter-spacing: 2px;
+  overflow: hidden;
+}
+.hero-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(100%);
+}
+.hero-line:nth-child(1) { animation: slideUp 0.9s 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero-line:nth-child(2) { animation: slideUp 0.9s 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+.hero-line.accent { color: var(--accent); }
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 48px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s 1.1s forwards;
+}
+.hero-desc {
+  max-width: 480px;
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.hero-desc strong { color: var(--text); font-weight: 500; }
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+.hero-cta:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  gap: 20px;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.5s forwards;
+}
+.hero-scroll span {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--muted), transparent);
+  animation: scrollPulse 2s 2s infinite;
 }
 
-nav ul{
-    list-style:none;
-    display:flex;
-    gap:30px;
-    justify-content:flex-end;
+/* ── SECTIONS ── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 120px 6%;
+}
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.9;
+  margin-bottom: 60px;
 }
 
-nav a{
-    text-decoration:none;
-    color:white;
-    transition:.3s;
+/* ── ABOUT ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.about-text p strong { color: var(--text); font-weight: 500; }
+.photo-placeholder {
+  aspect-ratio: 3/4;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+.photo-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(74,158,255,0.04) 100%);
+}
+.photo-icon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--border2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+}
+.skill-tag {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: all 0.3s;
+  cursor: default;
+}
+.skill-tag:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
-nav a:hover{
-    opacity:.7;
+/* ── EXPERIENCE ── */
+.experience-list { display: flex; flex-direction: column; gap: 0; }
+.exp-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.exp-item.visible { opacity: 1; transform: translateY(0); }
+.exp-meta { padding-top: 4px; }
+.exp-year {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.exp-org {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.exp-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.exp-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.exp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.exp-tag {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-/* Hero */
+/* ── PROJECTS ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  opacity: 0;
+  transform: translateY(60px);
+}
+.project-card.visible { opacity: 1; transform: translateY(0); }
+.project-card:hover { border-color: var(--border2); }
+.project-card:hover .card-img-wrap img { transform: scale(1.04); }
+.project-card:hover .card-arrow { transform: translate(4px,-4px); }
 
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    padding:0 10%;
+.project-card.large { grid-column: span 7; }
+.project-card.medium { grid-column: span 5; }
+.project-card.wide { grid-column: span 12; }
+.project-card.third { grid-column: span 4; }
+
+.card-img-wrap {
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--border2);
+  position: relative;
+}
+.img-placeholder::after {
+  content: 'Add image';
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+}
+.card-body { padding: 28px; }
+.card-cat {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.card-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-top: 1px solid var(--border);
+}
+.card-tools { font-size: 0.72rem; color: var(--muted); letter-spacing: 1px; }
+.card-arrow {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  transition: transform 0.3s, border-color 0.3s, color 0.3s;
+}
+.project-card:hover .card-arrow {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
-.hero-content{
-    max-width:1000px;
+/* ── PROJECT MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+}
+.modal-overlay.active { pointer-events: all; }
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background 0.5s ease;
+}
+.modal-overlay.active .modal-backdrop { background: rgba(0,0,0,0.85); }
+.modal-panel {
+  position: relative;
+  width: 100%;
+  max-height: 90vh;
+  background: var(--surface);
+  border-top: 1px solid var(--border2);
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.modal-overlay.active .modal-panel { transform: translateY(0); }
+.modal-inner { max-width: 1100px; margin: 0 auto; padding: 60px 6%; }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 48px;
+}
+.modal-cat {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.modal-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 0.9;
+}
+.modal-close {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.modal-close:hover { background: rgba(255,255,255,0.05); border-color: var(--text); }
+.modal-hero-img {
+  width: 100%;
+  aspect-ratio: 21/9;
+  object-fit: cover;
+  margin-bottom: 48px;
+  background: var(--surface2);
+}
+.modal-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+}
+.modal-body p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+.modal-body p strong { color: var(--text); font-weight: 500; }
+.modal-body h4 {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 36px 0 16px;
+}
+.modal-body ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal-body ul li {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+.modal-body ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+.modal-sidebar { border-left: 1px solid var(--border); padding-left: 40px; }
+.sidebar-block { margin-bottom: 36px; }
+.sidebar-label {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.sidebar-value { font-size: 0.92rem; line-height: 1.6; }
+.sidebar-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.sidebar-tag {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.modal-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.modal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.modal-link:hover { background: var(--accent); border-color: var(--accent); }
+.modal-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.modal-gallery img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  background: var(--surface2);
 }
 
-.tag{
-    text-transform:uppercase;
-    letter-spacing:3px;
-    color:#999;
-    margin-bottom:20px;
+/* ── CONTACT ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.contact-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 40px;
+}
+.contact-links { display: flex; flex-direction: column; gap: 16px; }
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+.contact-link:hover { border-color: var(--accent); color: var(--accent); }
+.contact-link span { font-size: 0.8rem; color: var(--muted); }
+.big-cta {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 7vw, 7rem);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+  letter-spacing: 2px;
+  user-select: none;
 }
 
-.hero h1{
-    font-size:clamp(4rem,9vw,8rem);
-    line-height:.9;
-    font-weight:900;
+/* ── FOOTER ── */
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 40px 6%;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
 
-.hero p{
-    margin-top:30px;
-    font-size:1.2rem;
-    color:#c5c5c5;
-    max-width:700px;
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.from-left {
+  transform: translateX(-60px);
+}
+.reveal.from-right {
+  transform: translateX(60px);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translate(0,0);
 }
 
-.button{
-    display:inline-block;
-    margin-top:40px;
-    padding:15px 35px;
-    border:1px solid white;
-    color:white;
-    text-decoration:none;
-    transition:.3s;
+/* ── DIVIDER ── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  z-index: 1;
 }
 
-.button:hover{
-    background:white;
-    color:black;
+/* ── RESUME ── */
+.resume-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  border: 1px solid var(--border);
+  background: var(--surface);
 }
-
-/* Sections */
-
-section{
-    padding:120px 10%;
+.resume-block p { font-size: 1.05rem; color: var(--muted); max-width: 500px; line-height: 1.6; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 36px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: background 0.3s;
+  flex-shrink: 0;
 }
+.btn-primary:hover { background: var(--accent2); }
 
-h2{
-    font-size:3rem;
-    margin-bottom:40px;
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .about-grid, .contact-grid, .modal-grid { grid-template-columns: 1fr; gap: 40px; }
+  .modal-sidebar { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 32px; }
+  .project-card.large, .project-card.medium, .project-card.third { grid-column: span 12; }
+  .hero h1 { font-size: clamp(3.5rem, 16vw, 7rem); }
+  .nav-links { display: none; }
+  .hero-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
+  .exp-item { grid-template-columns: 1fr; gap: 8px; }
+  .resume-block { flex-direction: column; gap: 24px; align-items: flex-start; }
 }
-
-/* Cards */
-
-.card{
-    background:#141414;
-    border-radius:20px;
-    padding:35px;
-    margin-bottom:25px;
-    transition:.4s;
-}
-
-.card:hover{
-    transform:translateY(-10px);
-}
-
-.card h3{
-    margin-bottom:15px;
-}
-
-/* Skills */
-
-.skills{
-    display:flex;
-    flex-wrap:wrap;
-    gap:12px;
-}
-
-.skill{
-    padding:10px 18px;
-    border:1px solid #333;
-    border-radius:30px;
-}
-
-/* Contact */
-
-.contact a{
-    color:white;
-}
-
-/* Scroll Animation */
-
-.hidden{
-    opacity:0;
-    transform:translateY(60px);
-    transition:all 1s ease;
-}
-
-.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* Background Grid */
-
-.grid{
-    position:fixed;
-    inset:0;
-    background-image:
-    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-    background-size:50px 50px;
-    z-index:-1;
-}
-
-footer{
-    text-align:center;
-    padding:50px;
-    color:#888;
-}
-
 </style>
-
 </head>
-
 <body>
 
-<div class="grid"></div>
+<div class="grid-bg"></div>
 
-<nav>
-<ul>
-<li><a href="#about">About</a></li>
-<li><a href="#experience">Experience</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#resume">Resume</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">JF</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-
-<div class="hero-content">
-
-<p class="tag">
-Mechanical Engineering Student • Quality Engineering Intern
-</p>
-
-<h1>
-Designing the Future of Manufacturing & Aerospace
-</h1>
-
-<p>
-Liberty University Mechanical Engineering student graduating in 2027.
-Interested in aerospace systems, manufacturing automation,
-quality engineering, and product development.
-</p>
-
-<a href="#projects" class="button">
-View Projects
-</a>
-
-</div>
-
+  <div class="hero-content">
+    <p class="hero-eyebrow">Mechanical Engineering Student · Quality Engineering Intern</p>
+    <h1>
+      <span class="hero-line">ENGINEERING</span>
+      <span class="hero-line accent">THE FUTURE</span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        <strong>Liberty University</strong> Mechanical Engineering student, graduating 2027.
+        Focused on aerospace systems, manufacturing automation,
+        quality engineering, and precision design.
+      </p>
+      <a href="#projects" class="hero-cta">View Projects →</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
 </section>
 
-<section id="about" class="hidden">
+<div class="divider"></div>
 
-<h2>About</h2>
-
-<p>
-I am a Mechanical Engineering student at Liberty University and
-currently serve as a Quality Engineering Intern at HandyTube.
-My interests include aerospace engineering, manufacturing,
-automation, machine vision, and engineering design.
-</p>
-
-<br><br>
-
-<div class="skills">
-
-<div class="skill">SolidWorks</div>
-<div class="skill">3D Printing</div>
-<div class="skill">GD&T</div>
-<div class="skill">Quality Engineering</div>
-<div class="skill">Excel</div>
-<div class="skill">Python</div>
-<div class="skill">Manufacturing</div>
-
-</div>
-
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label reveal">About Me</p>
+  <div class="about-grid">
+    <div class="about-text reveal from-left">
+      <h2 class="section-title">Built to Build</h2>
+      <p>
+        I'm a Mechanical Engineering student at <strong>Liberty University</strong> with hands-on experience
+        in quality engineering, advanced SolidWorks modeling, and manufacturing systems.
+        Currently serving as a <strong>Quality Engineering Intern at HandyTube</strong>, where I lead
+        process improvements, automation research, and inspection system development.
+      </p>
+      <p>
+        My passion sits at the intersection of precision engineering and real-world manufacturing —
+        designing systems that are not just functional, but built to last. Outside of work,
+        I compete on the <strong>SAE Baja</strong> and Formula teams, bringing the same rigor to
+        off-road vehicle design.
+      </p>
+      <div class="skills-grid">
+        <span class="skill-tag">SolidWorks</span>
+        <span class="skill-tag">GD&T</span>
+        <span class="skill-tag">3D Printing</span>
+        <span class="skill-tag">Quality Engineering</span>
+        <span class="skill-tag">CVT Tuning</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">MATLAB</span>
+        <span class="skill-tag">Manufacturing</span>
+        <span class="skill-tag">Machine Vision</span>
+        <span class="skill-tag">Excel</span>
+        <span class="skill-tag">Arduino</span>
+        <span class="skill-tag">Thermodynamics</span>
+      </div>
+    </div>
+    <div class="reveal from-right">
+      <!-- Replace src with your actual photo path, e.g. src="josiah.jpg" -->
+      <div class="photo-placeholder">
+        <div class="photo-icon">📷</div>
+        <span>Your photo here</span>
+        <small style="font-size:0.65rem; margin-top:4px; color: #555; letter-spacing:0">Replace with: &lt;img src="josiah.jpg"&gt;</small>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="experience" class="hidden">
+<div class="divider"></div>
 
-<h2>Experience</h2>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label reveal">Where I've Worked</p>
+  <h2 class="section-title reveal">Experience</h2>
+  <div class="experience-list">
 
-<div class="card">
-<h3>Quality Engineering Intern — HandyTube</h3>
-<p>
-Process improvements, automation projects, downtime studies,
-inspection systems, manufacturing support, and quality initiatives.
-</p>
-</div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2024 – Present</p>
+        <p class="exp-org">HandyTube<br>Quality Engineering</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Quality Engineering Intern</h3>
+        <p class="exp-desc">
+          Leading process improvement initiatives, automation research, downtime studies, and inspection system design. Developing an AI-based machine vision system for automated tube inspection, and conducting a Straight Length Annealer oxidation study to optimize tube quality parameters.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">Quality Engineering</span>
+          <span class="exp-tag">Machine Vision</span>
+          <span class="exp-tag">Process Automation</span>
+          <span class="exp-tag">Manufacturing</span>
+        </div>
+      </div>
+    </div>
 
-<div class="card">
-<h3>SAE Baja Team</h3>
-<p>
-Vehicle design, fabrication, testing, and competition preparation.
-</p>
-</div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2024 – 2025</p>
+        <p class="exp-org">Liberty University<br>SAE Baja Team</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Drivetrain Engineer — SAE Baja</h3>
+        <p class="exp-desc">
+          Designed and tuned the CVT drivetrain to improve torque delivery and reduce belt slippage. Modeled the engine mount, splash guard, and fuel system integration in SolidWorks. Diagnosed and resolved drivetrain issues including throttle response, gearbox misalignment, and fuel delivery.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">SolidWorks</span>
+          <span class="exp-tag">CVT Tuning</span>
+          <span class="exp-tag">Drivetrain</span>
+          <span class="exp-tag">Vehicle Design</span>
+        </div>
+      </div>
+    </div>
 
-<div class="card">
-<h3>EMRC Competition Team</h3>
-<p>
-Engineering design and project collaboration.
-</p>
-</div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2024 – 2025</p>
+        <p class="exp-org">Liberty University<br>Formula Team</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Suspension & Powertrain Engineer — Formula</h3>
+        <p class="exp-desc">
+          Modeled major powertrain components including crankshaft, transmission input/output shafts, friction plates, steel disks, clutch basket, and drivetrain pump. Designed and integrated the steering shaft for the suspension subsystem, ensuring proper tolerances and assembly fit.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">SolidWorks</span>
+          <span class="exp-tag">Powertrain</span>
+          <span class="exp-tag">Suspension</span>
+          <span class="exp-tag">Formula Design</span>
+        </div>
+      </div>
+    </div>
 
-<div class="card">
-<h3>TPE Competition Team</h3>
-<p>
-Product development and technical problem solving.
-</p>
-</div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2024 – 2025</p>
+        <p class="exp-org">Liberty University<br>Theme Park Engineering</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Mechanical Lead — TPE Theme Park Competition</h3>
+        <p class="exp-desc">
+          Designed and 3D-printed the gondola, seats, and lap bar restraint system for a scale pendulum amusement ride. Led stepper motor assembly, selected steel support structures, created service documentation, mechanical drawings, and the competition advertisement poster.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">3D Printing</span>
+          <span class="exp-tag">SolidWorks</span>
+          <span class="exp-tag">Arduino</span>
+          <span class="exp-tag">Mechanical Design</span>
+        </div>
+      </div>
+    </div>
 
+  </div>
 </section>
 
-<section id="projects" class="hidden">
+<div class="divider"></div>
 
-<h2>Projects</h2>
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label reveal">Selected Work</p>
+  <h2 class="section-title reveal">Projects</h2>
+  <div class="projects-grid">
 
-<div class="card">
-<h3>AI Tube Inspection System</h3>
-<p>
-Researching machine vision and anomaly detection methods for
-automated tubing inspection.
-</p>
-</div>
+    <!-- Card 1 — Large -->
+    <div class="project-card large reveal from-left" data-project="baja">
+      <div class="card-img-wrap">
+        <!-- Replace with actual image: <img src="baja-assembly.png" alt="Baja SAE drivetrain"> -->
+        <img src="https://raw.githubusercontent.com/Josiah-Mechy/BAJA-SAE-Drivetrain-Engineering/main/Engine%20and%20Fuel%20Assembly%20with%20Frame.png" alt="Baja SAE Assembly" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>⚙️</div>'">
+      </div>
+      <div class="card-body">
+        <p class="card-cat">SAE Baja · Drivetrain</p>
+        <h3 class="card-title">CVT & Drivetrain Engineering</h3>
+        <p class="card-desc">Tuned the CVT for improved torque delivery, modeled the full engine and fuel system integration, and resolved real-world drivetrain issues under competition conditions.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-tools">SolidWorks · CVT Tuning · SolidWorks</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </div>
 
-<div class="card">
-<h3>Straight Length Annealer Study</h3>
-<p>
-Investigating oxidation levels and process parameters affecting
-tube quality.
-</p>
-</div>
+    <!-- Card 2 — Medium -->
+    <div class="project-card medium reveal from-right" data-project="pendulum">
+      <div class="card-img-wrap">
+        <img src="https://github.com/user-attachments/assets/6b1bacda-bb7a-4221-81ea-21e0d7a67152" alt="Pendulum Ride Model" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🎡</div>'">
+      </div>
+      <div class="card-body">
+        <p class="card-cat">TPE Competition · Mechanical Design</p>
+        <h3 class="card-title">Pendulum Amusement Ride Model</h3>
+        <p class="card-desc">Scale model of a pendulum ride with dual stepper motors, 3D-printed gondola, custom lap bars, and an Arduino control system.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-tools">3D Printing · Arduino · SolidWorks</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </div>
 
-<div class="card">
-<h3>3D Printing Projects</h3>
-<p>
-Designing and manufacturing functional engineering components.
-</p>
-</div>
+    <!-- Card 3 — Third -->
+    <div class="project-card third reveal" style="transition-delay: 0.1s" data-project="stirling">
+      <div class="card-img-wrap">
+        <img src="https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car/raw/main/Stirling%20Engine%20Car%20-%20SolidWorks%20Assembly.png" alt="Stirling Engine Car" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🔥</div>'">
+      </div>
+      <div class="card-body">
+        <p class="card-cat">Thermodynamics II</p>
+        <h3 class="card-title">Stirling Engine Car</h3>
+        <p class="card-desc">Beta-type Stirling engine vehicle converting external heat into mechanical work. One of only ~2 teams to complete this project.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-tools">SolidWorks · MATLAB</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </div>
 
-<div class="card">
-<h3>Class Engineering Projects</h3>
-<p>
-Mechanical design, analysis, and prototype development.
-</p>
-</div>
+    <!-- Card 4 — Third -->
+    <div class="project-card third reveal" style="transition-delay: 0.2s" data-project="formula">
+      <div class="card-img-wrap">
+        <img src="https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Crank%20Shaft.png" alt="Formula Crankshaft" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🏎️</div>'">
+      </div>
+      <div class="card-body">
+        <p class="card-cat">Formula EMRC · Powertrain</p>
+        <h3 class="card-title">Formula Powertrain Components</h3>
+        <p class="card-desc">SolidWorks modeling of crankshaft, transmission shafts, clutch basket, friction plates, and suspension steering shaft.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-tools">SolidWorks · GD&T</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </div>
 
+    <!-- Card 5 — Third -->
+    <div class="project-card third reveal" style="transition-delay: 0.3s" data-project="inspection">
+      <div class="card-img-wrap">
+        <div class="img-placeholder">🔬</div>
+      </div>
+      <div class="card-body">
+        <p class="card-cat">HandyTube · Quality Engineering</p>
+        <h3 class="card-title">AI Tube Inspection System</h3>
+        <p class="card-desc">Researching machine vision and anomaly detection methods for automated tubing inspection to replace manual QC processes.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-tools">Machine Vision · Python · Quality</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
-<section id="resume" class="hidden">
+<div class="divider"></div>
 
-<h2>Resume</h2>
-
-<div class="card">
-
-<p>
-Upload your resume PDF to the repository and rename it:
-</p>
-
-<br>
-
-<strong>resume.pdf</strong>
-
-<br><br>
-
-<a class="button" href="resume.pdf">
-Download Resume
-</a>
-
-</div>
-
+<!-- RESUME -->
+<section id="resume">
+  <p class="section-label reveal">Documentation</p>
+  <h2 class="section-title reveal">Resume</h2>
+  <div class="resume-block reveal">
+    <p>Download my full resume to see my complete work history, skills, and academic background. I'm currently seeking internship and co-op opportunities in aerospace, manufacturing, or quality engineering.</p>
+    <!-- Update href to the actual resume file once uploaded -->
+    <a href="resume.pdf" class="btn-primary">Download Resume →</a>
+  </div>
 </section>
 
-<section id="contact" class="hidden contact">
+<div class="divider"></div>
 
-<h2>Contact</h2>
-
-<div class="card">
-
-<p>Email: your.email@email.com</p>
-
-<br>
-
-<p>LinkedIn: https://linkedin.com/in/yourprofile</p>
-
-</div>
-
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-text reveal from-left">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Let's Work<br>Together</h2>
+      <p>Interested in discussing opportunities in aerospace, manufacturing, or quality engineering? I'm open to internships, co-ops, and collaborative projects.</p>
+      <div class="contact-links">
+        <!-- Update with real email and LinkedIn URL -->
+        <a href="mailto:your.email@email.com" class="contact-link">
+          Email
+          <span>your.email@email.com →</span>
+        </a>
+        <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">
+          LinkedIn
+          <span>linkedin.com/in/yourprofile →</span>
+        </a>
+        <a href="https://github.com/Josiah-Mechy" target="_blank" class="contact-link">
+          GitHub
+          <span>github.com/Josiah-Mechy →</span>
+        </a>
+      </div>
+    </div>
+    <div class="reveal from-right" style="text-align:right; padding-top: 40px;">
+      <p class="big-cta">JOSIAH<br>FARINACCI</p>
+    </div>
+  </div>
 </section>
 
 <footer>
-© 2026 Josiah Farinacci
+  <p>© 2026 Josiah Farinacci — Mechanical Engineering</p>
+  <p>Liberty University · Class of 2027</p>
 </footer>
 
+<!-- PROJECT MODALS -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div class="modal-panel" id="modal-panel">
+    <div class="modal-inner" id="modal-inner">
+      <!-- Content injected by JS -->
+    </div>
+  </div>
+</div>
+
 <script>
+/* ── NAV SCROLL ── */
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
 
-const observer = new IntersectionObserver(entries => {
+/* ── INTERSECTION OBSERVER ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
 
-entries.forEach(entry => {
+document.querySelectorAll('.reveal, .exp-item, .project-card').forEach(el => {
+  revealObserver.observe(el);
+});
 
-if(entry.isIntersecting){
+/* ── PROJECT DATA ── */
+const projects = {
+  baja: {
+    cat: 'SAE Baja · Drivetrain Engineering',
+    title: 'CVT & Drivetrain Engineering',
+    img: 'https://raw.githubusercontent.com/Josiah-Mechy/BAJA-SAE-Drivetrain-Engineering/main/Engine%20and%20Fuel%20Assembly%20with%20Frame.png',
+    overview: `As a Drivetrain Engineer on Liberty University's Baja SAE Competition Team during the 2024–2025 design phase, I focused on the design, tuning, and integration of the vehicle's core powertrain components. The work directly contributed to more consistent power delivery in acceleration events and fewer mechanical failures during endurance runs.`,
+    body: `I tuned the Continuously Variable Transmission (CVT) to improve torque delivery and reduce belt slippage, then diagnosed real-world drivetrain issues including throttle response inconsistencies, gearbox misalignment, and fuel delivery problems. Working alongside teammate Zach Sun, I modeled the engine mount, custom splash guard, and fuel tank in SolidWorks and integrated them into the full vehicle assembly.`,
+    contributions: [
+      'CVT tuning for improved torque delivery and belt performance',
+      'Engine, fuel tank, and fuel line routing in full vehicle SolidWorks assembly',
+      'Custom splash guard design for powertrain protection in off-road events',
+      'Diagnosed and resolved throttle response, gearbox, and fuel delivery issues',
+      'Research documentation on drivetrain material selection'
+    ],
+    tools: ['SolidWorks', 'CVT Tuning Tools', 'Excel', 'MS Word'],
+    team: 'Liberty University Baja SAE Team · Zach Sun (co-researcher)',
+    period: '2024 – 2025',
+    links: [
+      { label: 'Full Vehicle Assembly', url: 'https://github.com/Josiah-Mechy/BAJA-SAE-Drivetrain-Engineering/blob/main/SOLIDWORKS%20Frame.png' },
+      { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/BAJA-SAE-Drivetrain-Engineering' }
+    ],
+    gallery: [
+      'https://raw.githubusercontent.com/Josiah-Mechy/BAJA-SAE-Drivetrain-Engineering/main/Engine%20and%20Fuel%20Assembly.png',
+      'https://raw.githubusercontent.com/Josiah-Mechy/BAJA-SAE-Drivetrain-Engineering/main/CVT%20Testing%20Data%201.png',
+      'https://raw.githubusercontent.com/Josiah-Mechy/BAJA-SAE-Drivetrain-Engineering/main/CVT%20Testing%20Data%202.png'
+    ]
+  },
+  pendulum: {
+    cat: 'TPE Competition · Mechanical Design',
+    title: 'Pendulum Amusement Ride Model',
+    img: 'https://github.com/user-attachments/assets/6b1bacda-bb7a-4221-81ea-21e0d7a67152',
+    overview: `Designed and built a scale model of a pendulum amusement ride for Liberty University's Theme Park Engineering competition. The ride incorporated dual stepper motors, a 3D-printed gondola with seating and lap bar restraints, a steel frame, and a concrete base — simulating real-world engineering constraints for theme park ride design.`,
+    body: `The project required integrating mechanical design with electrical control systems. I was responsible for the full mechanical build: modeling and 3D printing the gondola, seats, and lap bar mechanisms, then leading the assembly of the stepper motors. I also selected the steel structural members and base materials, and handled all service documentation, mechanical drawings, and the competition advertisement poster. Arduino control code was developed by teammates Aaron and Stephen Dooley.`,
+    contributions: [
+      'Designed and 3D printed gondola, seats, and lap bar restraint system',
+      'Led stepper motor assembly and integration',
+      'Selected and implemented steel support beams and concrete base',
+      'Testing and validation of motor behavior under load',
+      'Service documentation, SolidWorks drawings, and competition poster'
+    ],
+    tools: ['SolidWorks', '3D Printing', 'Arduino (team)', 'MS Word', 'Excel'],
+    team: 'Team of 7 — Aaron & Stephen Dooley (Arduino), Bernard Anderson (electronics), Brian Earls (CAD), Adrian Jones & Elliot (structure)',
+    period: '2024 – 2025',
+    links: [
+      { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Pendulum-Ride-Model' },
+      { label: 'Competition Video', url: 'https://go.screenpal.com/watch/cTjh2anIdFB' }
+    ],
+    gallery: [
+      'https://github.com/Josiah-Mechy/Pendulum-Ride-Model/blob/main/Picture%20-%20LU.jpg?raw=true',
+      'https://github.com/user-attachments/assets/6b1bacda-bb7a-4221-81ea-21e0d7a67152'
+    ]
+  },
+  stirling: {
+    cat: 'Thermodynamics II · Class Project',
+    title: 'Beta-Type Stirling Engine Car',
+    img: 'https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car/raw/main/Stirling%20Engine%20Car%20-%20SolidWorks%20Assembly.png',
+    overview: `Built a small-scale beta-type Stirling engine powered vehicle for Thermodynamics II — a notoriously challenging project where only approximately two teams at Liberty University successfully completed it. The car uses a mix of 3D-printed and off-the-shelf components to demonstrate the conversion of external heat into mechanical work.`,
+    body: `The project required applying real thermodynamic cycles to a working physical prototype — far more challenging than a purely analytical assignment. The design was modeled in SolidWorks and analyzed in MATLAB to verify thermodynamic performance. Special thanks to Cyrus Harris who developed the MATLAB graphs and led the PowerPoint presentation.`,
+    contributions: [
+      'Full SolidWorks assembly and mechanical drawings',
+      'Designed and integrated 3D-printed and off-the-shelf components',
+      'Applied Stirling cycle thermodynamic principles to physical design',
+      'MATLAB thermodynamic performance analysis (with Cyrus Harris)'
+    ],
+    tools: ['SolidWorks', '3D Printing', 'MATLAB'],
+    team: 'Cyrus Harris (MATLAB & presentation)',
+    period: '2024 – 2025',
+    links: [
+      { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car' }
+    ],
+    gallery: [
+      'https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car/raw/main/Stirling%20Engine%20Car%20-%20SolidWorks%20Assembly.png',
+      'https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car/raw/main/Stirling%20Engine%20Car%20-%20SolidWorks%20Drawing.png'
+    ]
+  },
+  formula: {
+    cat: 'Formula EMRC · Powertrain & Suspension',
+    title: 'Formula Powertrain & Suspension Components',
+    img: 'https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Crank%20Shaft.png',
+    overview: `As a Suspension and Powertrain Engineer on Liberty University's Formula Competition Team, I designed and modeled the vehicle's core powertrain and suspension components in SolidWorks, ensuring manufacturable geometry, proper tolerances, and clean assembly fit within the full vehicle package.`,
+    body: `I modeled all major powertrain components — crankshaft, transmission input and output shafts, friction plates, steel disks, clutch basket, and the drivetrain pump assembly — while also designing the steering shaft for the suspension subsystem. Each component was designed with real manufacturing constraints in mind, including packaging within the chassis and cross-system compatibility with adjacent subsystems.`,
+    contributions: [
+      'Crankshaft SolidWorks model with accurate geometry and tolerances',
+      'Transmission input and output shaft design',
+      'Friction plate, steel disk, and clutch basket assembly',
+      'Drivetrain pump assembly modeling',
+      'Steering shaft design for suspension integration'
+    ],
+    tools: ['SolidWorks', 'GD&T', 'MS Word'],
+    team: 'Liberty University Formula EMRC Team',
+    period: '2024 – 2025',
+    links: [
+      { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Formula-Competition-Team' }
+    ],
+    gallery: [
+      'https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Crank%20Shaft.png',
+      'https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Transmission%20Input%20Shaft.png',
+      'https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Clutch%20Basket.png',
+      'https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Powertrain%20Pump.png'
+    ]
+  },
+  inspection: {
+    cat: 'HandyTube · Quality Engineering',
+    title: 'AI Tube Inspection System',
+    img: '',
+    overview: `Researching and developing a machine vision-based inspection system for automated tubing quality control at HandyTube. The goal is to replace manual inspection processes with an AI-driven anomaly detection pipeline capable of identifying defects in real time on the production line.`,
+    body: `The project involves evaluating machine vision hardware configurations, researching anomaly detection algorithms, and prototyping inspection logic. Additionally conducting a parallel Straight Length Annealer study to understand how oxidation levels and process parameters affect tube surface quality — outcomes that directly inform the inspection system's detection targets.`,
+    contributions: [
+      'Research on machine vision hardware and anomaly detection methods',
+      'Prototyping inspection system architecture for production-line integration',
+      'Straight Length Annealer oxidation study correlating process parameters to tube quality',
+      'Process improvement and downtime reduction analysis'
+    ],
+    tools: ['Python', 'Machine Vision', 'Quality Engineering', 'Excel'],
+    team: 'HandyTube Quality Engineering Team',
+    period: '2024 – Present',
+    links: [],
+    gallery: []
+  }
+};
 
-entry.target.classList.add("show");
+/* ── MODAL LOGIC ── */
+const overlay = document.getElementById('modal-overlay');
+const backdrop = document.getElementById('modal-backdrop');
+const panel = document.getElementById('modal-panel');
+const inner = document.getElementById('modal-inner');
 
+function openModal(key) {
+  const p = projects[key];
+  if (!p) return;
+
+  const galleryHTML = p.gallery.length
+    ? `<div class="modal-gallery">${p.gallery.map(src =>
+        `<img src="${src}" alt="" onerror="this.style.display='none'">`
+      ).join('')}</div>`
+    : '';
+
+  const linksHTML = p.links.length
+    ? `<h4>Files & Links</h4><div class="modal-links">${p.links.map(l =>
+        `<a href="${l.url}" target="_blank" class="modal-link">${l.label} →</a>`
+      ).join('')}</div>`
+    : '';
+
+  const heroImg = p.img
+    ? `<img src="${p.img}" alt="${p.title}" class="modal-hero-img" onerror="this.style.display='none'">`
+    : '';
+
+  inner.innerHTML = `
+    <div class="modal-header">
+      <div>
+        <p class="modal-cat">${p.cat}</p>
+        <h2 class="modal-title">${p.title}</h2>
+      </div>
+      <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+    </div>
+    ${heroImg}
+    <div class="modal-grid">
+      <div class="modal-body">
+        <p>${p.overview}</p>
+        <p>${p.body}</p>
+        <h4>My Contributions</h4>
+        <ul>${p.contributions.map(c => `<li>${c}</li>`).join('')}</ul>
+        ${galleryHTML ? '<h4>Gallery</h4>' + galleryHTML : ''}
+        ${linksHTML}
+      </div>
+      <div class="modal-sidebar">
+        <div class="sidebar-block">
+          <p class="sidebar-label">Period</p>
+          <p class="sidebar-value">${p.period}</p>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Tools</p>
+          <div class="sidebar-tags">${p.tools.map(t => `<span class="sidebar-tag">${t}</span>`).join('')}</div>
+        </div>
+        <div class="sidebar-block">
+          <p class="sidebar-label">Team</p>
+          <p class="sidebar-value" style="font-size:0.82rem;color:var(--muted)">${p.team}</p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  panel.scrollTop = 0;
+
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
 }
 
+function closeModal() {
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+backdrop.addEventListener('click', closeModal);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
 });
 
+document.querySelectorAll('.project-card[data-project]').forEach(card => {
+  card.addEventListener('click', () => openModal(card.dataset.project));
 });
-
-document.querySelectorAll(".hidden")
-.forEach(el => observer.observe(el));
-
 </script>
-
 </body>
 </html>
