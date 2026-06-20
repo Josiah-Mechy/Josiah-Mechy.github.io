@@ -55,18 +55,17 @@ body::before {
 /* ── NAV ── */
 .nav-wrap {
   position: fixed;
-  top: 24px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
-  width: min(92%, 920px);
+  width: min(92%, 880px);
 }
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 24px;
-  padding: 10px 14px 10px 10px;
+  padding: 14px 28px;
   border-radius: 999px;
   background: rgba(30,34,40,0.55);
   backdrop-filter: blur(20px) saturate(140%);
@@ -79,36 +78,21 @@ nav.scrolled {
   background: rgba(14,16,20,0.72);
   border-color: rgba(255,255,255,0.14);
 }
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.05rem;
-  letter-spacing: 1.5px;
-  color: var(--text);
-  text-decoration: none;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 8px 16px;
-  border-radius: 999px;
-  flex-shrink: 0;
-}
-.nav-logo .nav-logo-icon { font-size: 0.95rem; }
 .nav-links {
   display: flex;
   align-items: center;
-  gap: clamp(14px, 2.4vw, 30px);
+  justify-content: center;
+  gap: clamp(16px, 2.8vw, 34px);
   list-style: none;
-  padding-right: 6px;
+  flex-wrap: wrap;
 }
 .nav-links a {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   color: var(--text);
   text-decoration: none;
-  font-size: 0.78rem;
+  font-size: 0.92rem;
   font-weight: 500;
   letter-spacing: 0.5px;
   white-space: nowrap;
@@ -116,7 +100,7 @@ nav.scrolled {
   transition: opacity 0.3s;
 }
 .nav-links a .nav-num {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--muted);
   letter-spacing: 0;
@@ -127,11 +111,11 @@ nav.scrolled {
 .hero {
   position: relative;
   z-index: 1;
-  min-height: 100vh;
+  min-height: 52vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 6% 8vh;
+  padding: 110px 6% 6vh;
   overflow: hidden;
 }
 .hero-eyebrow {
@@ -377,6 +361,7 @@ section {
 .project-card.large { grid-column: span 7; }
 .project-card.medium { grid-column: span 5; }
 .project-card.wide { grid-column: span 12; }
+.project-card.half { grid-column: span 6; }
 .project-card.third { grid-column: span 4; }
 
 .card-img-wrap {
@@ -737,14 +722,13 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
 @media (max-width: 900px) {
   .about-grid, .contact-grid, .modal-grid { grid-template-columns: 1fr; gap: 40px; }
   .modal-sidebar { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 32px; }
-  .project-card.large, .project-card.medium, .project-card.third { grid-column: span 12; }
+  .project-card.large, .project-card.medium, .project-card.half, .project-card.third { grid-column: span 12; }
   .hero h1 { font-size: clamp(3.5rem, 16vw, 7rem); }
   .nav-wrap { width: 94%; top: 14px; }
-  nav { padding: 8px 10px 8px 8px; }
-  .nav-links { overflow-x: auto; gap: 16px; scrollbar-width: none; -ms-overflow-style: none; }
+  nav { padding: 10px 14px; }
+  .nav-links { overflow-x: auto; gap: 16px; justify-content: flex-start; scrollbar-width: none; -ms-overflow-style: none; }
   .nav-links::-webkit-scrollbar { display: none; }
   .nav-links a .nav-num { display: none; }
-  .nav-logo span.nav-logo-text { display: none; }
   .hero-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
   .exp-item { grid-template-columns: 1fr; gap: 8px; }
   .resume-block { flex-direction: column; gap: 24px; align-items: flex-start; }
@@ -758,7 +742,6 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
 <!-- NAV -->
 <div class="nav-wrap">
 <nav id="main-nav">
-  <a href="#intro" class="nav-logo"><span class="nav-logo-icon">🚀</span><span class="nav-logo-text">JF</span></a>
   <ul class="nav-links">
     <li><a href="#intro"><span class="nav-num">01</span>Intro</a></li>
     <li><a href="#about"><span class="nav-num">02</span>About</a></li>
@@ -782,7 +765,7 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
     <div class="hero-bottom">
       <p class="hero-desc">
         <strong>Liberty University</strong> Mechanical Engineering student, graduating 2027.
-        Focused on aerospace, themed entertainment, and manufacturing engineering.
+        Focused on aerospace, defense, and themed entertainment engineering.
       </p>
     </div>
   </div>
@@ -992,25 +975,6 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
 
     <div class="exp-item">
       <div class="exp-meta">
-        <p class="exp-year">2020 – Present</p>
-        <p class="exp-org">Love of Christ Church<br>Live Production</p>
-      </div>
-      <div>
-        <h3 class="exp-title">Love of Christ Church — Live Production Volunteer</h3>
-        <p class="exp-desc">
-          Supported Love of Christ Church live production by operating cameras, programming lighting systems, and managing live graphics for in-person and online services serving large congregations.
-        </p>
-        <div class="exp-tags">
-          <span class="exp-tag">Camera Operation</span>
-          <span class="exp-tag">Lighting Control</span>
-          <span class="exp-tag">Live Graphics</span>
-          <span class="exp-tag">Live Production</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
         <p class="exp-year">2024 – Present</p>
         <p class="exp-org">Liberty University<br>Recruitment & Outreach</p>
       </div>
@@ -1024,6 +988,25 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
           <span class="exp-tag">Student Engagement</span>
           <span class="exp-tag">Landscaping Service</span>
           <span class="exp-tag">Media Distribution</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2020 – Present</p>
+        <p class="exp-org">Love of Christ Church<br>Live Production</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Love of Christ Church — Production Team Volunteer</h3>
+        <p class="exp-desc">
+          Supported Love of Christ Church live production by operating cameras, programming lighting systems, and managing live graphics for in-person and online services serving large congregations.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">Camera Operation</span>
+          <span class="exp-tag">Lighting Control</span>
+          <span class="exp-tag">Live Graphics</span>
+          <span class="exp-tag">Live Production</span>
         </div>
       </div>
     </div>
@@ -1063,7 +1046,7 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
       </div>
       <div class="card-body">
         <p class="card-cat">TPE Competition · Mechanical Design</p>
-        <h3 class="card-title">Pendulum Amusement Ride Model</h3>
+        <h3 class="card-title">Ride Engineering Competition 2025</h3>
         <p class="card-desc">Scale model of a pendulum ride with dual stepper motors, 3D-printed gondola, custom lap bars, and an Arduino control system.</p>
       </div>
       <div class="card-footer">
@@ -1073,7 +1056,7 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
     </div>
 
     <!-- Card 3 — Third -->
-    <div class="project-card third reveal" style="transition-delay: 0.1s" data-project="stirling">
+    <div class="project-card half reveal" style="transition-delay: 0.1s" data-project="stirling">
       <div class="card-img-wrap">
         <img src="https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car/raw/main/Stirling%20Engine%20Car%20-%20SolidWorks%20Assembly.png" alt="Stirling Engine Car" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🔥</div>'">
       </div>
@@ -1089,7 +1072,7 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
     </div>
 
     <!-- Card 4 — Third -->
-    <div class="project-card third reveal" style="transition-delay: 0.2s" data-project="formula">
+    <div class="project-card half reveal" style="transition-delay: 0.2s" data-project="formula">
       <div class="card-img-wrap">
         <img src="https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Crank%20Shaft.png" alt="Formula Crankshaft" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🏎️</div>'">
       </div>
@@ -1100,22 +1083,6 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
       </div>
       <div class="card-footer">
         <span class="card-tools">SolidWorks · GD&T</span>
-        <div class="card-arrow">↗</div>
-      </div>
-    </div>
-
-    <!-- Card 5 — Third -->
-    <div class="project-card third reveal" style="transition-delay: 0.3s" data-project="inspection">
-      <div class="card-img-wrap">
-        <div class="img-placeholder">🔬</div>
-      </div>
-      <div class="card-body">
-        <p class="card-cat">HandyTube · Quality Engineering</p>
-        <h3 class="card-title">AI Tube Inspection System</h3>
-        <p class="card-desc">Researching machine vision and anomaly detection methods for automated tubing inspection to replace manual QC processes.</p>
-      </div>
-      <div class="card-footer">
-        <span class="card-tools">Machine Vision · Python · Quality</span>
         <div class="card-arrow">↗</div>
       </div>
     </div>
@@ -1232,7 +1199,7 @@ const projects = {
   },
   pendulum: {
     cat: 'TPE Competition · Mechanical Design',
-    title: 'Pendulum Amusement Ride Model',
+    title: 'Ride Engineering Competition 2025',
     img: 'https://github.com/user-attachments/assets/6b1bacda-bb7a-4221-81ea-21e0d7a67152',
     overview: `Designed and built a scale model of a pendulum amusement ride for Liberty University's Theme Park Engineering competition. The ride incorporated dual stepper motors, a 3D-printed gondola with seating and lap bar restraints, a steel frame, and a concrete base — simulating real-world engineering constraints for theme park ride design.`,
     body: `The project required integrating mechanical design with electrical control systems. As Design Team Lead and Project Manager, I was responsible for the full mechanical build: modeling and 3D printing the gondola, seats, and lap bar mechanisms, then leading the assembly of the stepper motors. I also selected the steel structural members and base materials, validated structural integrity through FEA simulations and MATLAB-based force analysis aligned with ASTM standards, and handled all service documentation, mechanical drawings, and the competition advertisement poster. Arduino control code was developed by teammates Aaron and Stephen Dooley.`,
@@ -1248,7 +1215,8 @@ const projects = {
     period: '2024 – Present',
     links: [
       { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Pendulum-Ride-Model' },
-      { label: 'Competition Video', url: 'https://go.screenpal.com/watch/cTjh2anIdFB' }
+      { label: 'Competition Video', url: 'https://go.screenpal.com/watch/cTjh2anIdFB' },
+      { label: 'Theme Park Engineering at Liberty University | LinkedIn', url: 'https://www.linkedin.com/company/theme-park-engineering-at-liberty-university/?viewAsMember=true' }
     ],
     gallery: [
       'https://github.com/Josiah-Mechy/Pendulum-Ride-Model/blob/main/Picture%20-%20LU.jpg?raw=true',
@@ -1296,7 +1264,8 @@ const projects = {
     team: 'Liberty University Formula SAE Team',
     period: '2024 – 2025',
     links: [
-      { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Formula-Competition-Team' }
+      { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Formula-Competition-Team' },
+      { label: 'Liberty University Formula Racing | LinkedIn', url: 'https://www.linkedin.com/company/liberty-university-formula-racing/' }
     ],
     gallery: [
       'https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Crank%20Shaft.png',
@@ -1304,24 +1273,6 @@ const projects = {
       'https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Clutch%20Basket.png',
       'https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Powertrain%20Pump.png'
     ]
-  },
-  inspection: {
-    cat: 'HandyTube · Quality Engineering',
-    title: 'AI Tube Inspection System',
-    img: '',
-    overview: `Researching and developing a machine vision-based inspection system for automated tubing quality control at HandyTube. The goal is to replace manual inspection processes with an AI-driven anomaly detection pipeline capable of identifying defects in real time on the production line.`,
-    body: `The project involves evaluating machine vision hardware configurations, researching anomaly detection algorithms, and prototyping inspection logic. Additionally conducting a parallel Straight Length Annealer study to understand how oxidation levels and process parameters affect tube surface quality — outcomes that directly inform the inspection system's detection targets.`,
-    contributions: [
-      'Research on machine vision hardware and anomaly detection methods',
-      'Prototyping inspection system architecture for production-line integration',
-      'Straight Length Annealer oxidation study correlating process parameters to tube quality',
-      'Process improvement and downtime reduction analysis'
-    ],
-    tools: ['SolidWorks', 'Excel', 'PLC Programming', 'AI Process Improvement'],
-    team: 'HandyTube Quality Engineering Team',
-    period: '2024 – Present',
-    links: [],
-    gallery: []
   }
 };
 
