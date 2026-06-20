@@ -53,39 +53,75 @@ body::before {
 }
 
 /* ── NAV ── */
-nav {
+.nav-wrap {
   position: fixed;
-  width: 100%;
-  top: 0;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
-  padding: 24px 6%;
+  width: min(92%, 920px);
+}
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background 0.4s, backdrop-filter 0.4s;
+  gap: 24px;
+  padding: 10px 14px 10px 10px;
+  border-radius: 999px;
+  background: rgba(30,34,40,0.55);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  transition: background 0.4s, border-color 0.4s;
 }
 nav.scrolled {
-  background: rgba(8,8,8,0.85);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+  background: rgba(14,16,20,0.72);
+  border-color: rgba(255,255,255,0.14);
 }
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  letter-spacing: 2px;
+  font-size: 1.05rem;
+  letter-spacing: 1.5px;
   color: var(--text);
   text-decoration: none;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 8px 16px;
+  border-radius: 999px;
+  flex-shrink: 0;
 }
-.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-logo .nav-logo-icon { font-size: 0.95rem; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 30px);
+  list-style: none;
+  padding-right: 6px;
+}
 .nav-links a {
-  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text);
   text-decoration: none;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  transition: color 0.3s;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  opacity: 0.85;
+  transition: opacity 0.3s;
 }
-.nav-links a:hover { color: var(--text); }
+.nav-links a .nav-num {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+.nav-links a:hover { opacity: 1; }
 
 /* ── HERO ── */
 .hero {
@@ -703,7 +739,12 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
   .modal-sidebar { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 32px; }
   .project-card.large, .project-card.medium, .project-card.third { grid-column: span 12; }
   .hero h1 { font-size: clamp(3.5rem, 16vw, 7rem); }
-  .nav-links { display: none; }
+  .nav-wrap { width: 94%; top: 14px; }
+  nav { padding: 8px 10px 8px 8px; }
+  .nav-links { overflow-x: auto; gap: 16px; scrollbar-width: none; -ms-overflow-style: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a .nav-num { display: none; }
+  .nav-logo span.nav-logo-text { display: none; }
   .hero-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
   .exp-item { grid-template-columns: 1fr; gap: 8px; }
   .resume-block { flex-direction: column; gap: 24px; align-items: flex-start; }
@@ -715,32 +756,34 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
 <div class="grid-bg"></div>
 
 <!-- NAV -->
+<div class="nav-wrap">
 <nav id="main-nav">
-  <a href="#" class="nav-logo">JF</a>
+  <a href="#intro" class="nav-logo"><span class="nav-logo-icon">🚀</span><span class="nav-logo-text">JF</span></a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#resume">Resume</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#intro"><span class="nav-num">01</span>Intro</a></li>
+    <li><a href="#about"><span class="nav-num">02</span>About</a></li>
+    <li><a href="#experience"><span class="nav-num">03</span>Experience</a></li>
+    <li><a href="#volunteer"><span class="nav-num">04</span>Volunteer</a></li>
+    <li><a href="#projects"><span class="nav-num">05</span>Projects</a></li>
+    <li><a href="#resume"><span class="nav-num">06</span>Resume</a></li>
+    <li><a href="#contact"><span class="nav-num">07</span>Contact</a></li>
   </ul>
 </nav>
+</div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="intro">
   <div class="hero-content">
     <p class="hero-eyebrow">Mechanical Engineering Student · Quality Engineering Intern</p>
     <h1>
-      <span class="hero-line">ENGINEERING</span>
-      <span class="hero-line accent">THE FUTURE</span>
+      <span class="hero-line">JOSIAH</span>
+      <span class="hero-line accent">FARINACCI</span>
     </h1>
     <div class="hero-bottom">
       <p class="hero-desc">
         <strong>Liberty University</strong> Mechanical Engineering student, graduating 2027.
-        Focused on aerospace systems, manufacturing automation,
-        quality engineering, and precision design.
+        Focused on aerospace, themed entertainment, and manufacturing engineering.
       </p>
-      <a href="#projects" class="hero-cta">View Projects →</a>
     </div>
   </div>
   <div class="hero-scroll">
@@ -753,35 +796,35 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
 
 <!-- ABOUT -->
 <section id="about">
-  <p class="section-label reveal">About Me</p>
+  <p class="section-label reveal">Built to Build</p>
   <div class="about-grid">
     <div class="about-text reveal from-left">
-      <h2 class="section-title">Built to Build</h2>
+      <h2 class="section-title">About Me</h2>
       <p>
         I'm a Mechanical Engineering student at <strong>Liberty University</strong> with hands-on experience
         in quality engineering, advanced SolidWorks modeling, and manufacturing systems.
         Currently serving as a <strong>Quality Engineering Intern at HandyTube</strong>, where I lead
-        process improvements, automation research, and inspection system development.
+        process improvements, AI automation research, and documentation control.
       </p>
       <p>
-        My passion sits at the intersection of precision engineering and real-world manufacturing —
-        designing systems that are not just functional, but built to last. Outside of work,
-        I compete on the <strong>SAE Baja</strong> and Formula teams, bringing the same rigor to
-        off-road vehicle design.
+        Outside of work, I compete on the <strong>Vanguard NASA Lunabotics</strong> and
+        <strong>Theme Park Engineering Competition</strong> Teams. Stay tuned for my summer drone
+        project, to be posted on LinkedIn later this summer.
       </p>
       <div class="skills-grid">
-        <span class="skill-tag">SolidWorks</span>
-        <span class="skill-tag">GD&T</span>
-        <span class="skill-tag">3D Printing</span>
-        <span class="skill-tag">Quality Engineering</span>
-        <span class="skill-tag">CVT Tuning</span>
-        <span class="skill-tag">Python</span>
+        <span class="skill-tag">ANSYS</span>
+        <span class="skill-tag">AutoCAD</span>
+        <span class="skill-tag">Bambu Studio</span>
+        <span class="skill-tag">Blender</span>
+        <span class="skill-tag">Fusion 360</span>
+        <span class="skill-tag">FVD++</span>
         <span class="skill-tag">MATLAB</span>
-        <span class="skill-tag">Manufacturing</span>
-        <span class="skill-tag">Machine Vision</span>
-        <span class="skill-tag">Excel</span>
-        <span class="skill-tag">Arduino</span>
-        <span class="skill-tag">Thermodynamics</span>
+        <span class="skill-tag">Microsoft Office (Word, Excel, PowerPoint, Outlook)</span>
+        <span class="skill-tag">NoLimits 2</span>
+        <span class="skill-tag">(PLC Ladder Logic) DirectSOFT6</span>
+        <span class="skill-tag">Smartsheet</span>
+        <span class="skill-tag">SolidWorks</span>
+        <span class="skill-tag">Ultimaker Cura</span>
       </div>
     </div>
     <div class="reveal from-right">
@@ -809,34 +852,72 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
         <p class="exp-org">HandyTube<br>Quality Engineering</p>
       </div>
       <div>
-        <h3 class="exp-title">Quality Engineering Intern</h3>
+        <h3 class="exp-title">HandyTube — Quality Engineering Intern</h3>
         <p class="exp-desc">
-          Leading process improvement initiatives, automation research, downtime studies, and inspection system design. Developing an AI-based machine vision system for automated tube inspection, and conducting a Straight Length Annealer oxidation study to optimize tube quality parameters.
+          Improved production compliance, training effectiveness, and process consistency by standardizing over 300 work and training documents across aerospace manufacturing machines; reduced operational costs by approximately $100K/month through SolidWorks-designed 3D-printed components and an automated PLC-controlled soap titration system; and increased capacity utilization by identifying downtime drivers through facility-wide safety audits and operational analysis of the FGT Straightener.
         </p>
         <div class="exp-tags">
-          <span class="exp-tag">Quality Engineering</span>
-          <span class="exp-tag">Machine Vision</span>
-          <span class="exp-tag">Process Automation</span>
-          <span class="exp-tag">Manufacturing</span>
+          <span class="exp-tag">SolidWorks</span>
+          <span class="exp-tag">Excel</span>
+          <span class="exp-tag">PLC Programming</span>
+          <span class="exp-tag">AI Process Improvement</span>
         </div>
       </div>
     </div>
 
     <div class="exp-item">
       <div class="exp-meta">
-        <p class="exp-year">2024 – 2025</p>
-        <p class="exp-org">Liberty University<br>SAE Baja Team</p>
+        <p class="exp-year">2024 – Present</p>
+        <p class="exp-org">Liberty University<br>3D Print Lab</p>
       </div>
       <div>
-        <h3 class="exp-title">Drivetrain Engineer — SAE Baja</h3>
+        <h3 class="exp-title">Liberty University — 3D Print Lab Tech</h3>
         <p class="exp-desc">
-          Designed and tuned the CVT drivetrain to improve torque delivery and reduce belt slippage. Modeled the engine mount, splash guard, and fuel system integration in SolidWorks. Diagnosed and resolved drivetrain issues including throttle response, gearbox misalignment, and fuel delivery.
+          Provided reliable 3D printing and CAD support by operating Bambu Labs, UltiMaker, and ELEGOO printers, improving print success rates through CAD file preparation and STL optimization, and co-teaching SolidWorks CSWA certification content to enhance student proficiency and exam readiness.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">SolidWorks CSWA</span>
+          <span class="exp-tag">Bambu Studio</span>
+          <span class="exp-tag">Ultimaker Cura</span>
+          <span class="exp-tag">ELEGOO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2026 – Present</p>
+        <p class="exp-org">Liberty University<br>Vanguard NASA Lunabotics</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Liberty University Vanguard NASA Lunabotics Competition Team — Mechanical Subteam Member</h3>
+        <p class="exp-desc">
+          Contributed to the design, assembly, and testing of a lunar rover for the NASA Lunabotics Competition by supporting frame construction, actuator and bucket integration, and iterative improvements to mobility and excavation systems through regolith terrain testing and performance evaluation.
         </p>
         <div class="exp-tags">
           <span class="exp-tag">SolidWorks</span>
-          <span class="exp-tag">CVT Tuning</span>
-          <span class="exp-tag">Drivetrain</span>
-          <span class="exp-tag">Vehicle Design</span>
+          <span class="exp-tag">Mechanical Assembly</span>
+          <span class="exp-tag">Systems Testing & Validation</span>
+          <span class="exp-tag">Iterative Design Optimization</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2024 – Present</p>
+        <p class="exp-org">Liberty University<br>Theme Park Engineering</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Liberty University Theme Park Engineering Competition Team — Design Team Lead and Project Manager</h3>
+        <p class="exp-desc">
+          Led and contributed to the design and integration of safe, manufacturable amusement ride systems by modeling a pendulum ride in SolidWorks, managing roller coaster development and team coordination, and validating structural integrity and rider safety through FEA simulations and MATLAB-based force analysis aligned with ASTM standards.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">SolidWorks</span>
+          <span class="exp-tag">ANSYS</span>
+          <span class="exp-tag">MATLAB</span>
+          <span class="exp-tag">ASTM F2291 Documentation</span>
         </div>
       </div>
     </div>
@@ -847,15 +928,15 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
         <p class="exp-org">Liberty University<br>Formula Team</p>
       </div>
       <div>
-        <h3 class="exp-title">Suspension & Powertrain Engineer — Formula</h3>
+        <h3 class="exp-title">Liberty University Formula SAE — Suspension & Powertrain Engineer</h3>
         <p class="exp-desc">
-          Modeled major powertrain components including crankshaft, transmission input/output shafts, friction plates, steel disks, clutch basket, and drivetrain pump. Designed and integrated the steering shaft for the suspension subsystem, ensuring proper tolerances and assembly fit.
+          Developed detailed powertrain and suspension system models in SolidWorks, including crankshaft, transmission, clutch, and steering components, while improving performance analysis by processing tire data in MATLAB and generating visual insights in MagicTyre.
         </p>
         <div class="exp-tags">
           <span class="exp-tag">SolidWorks</span>
-          <span class="exp-tag">Powertrain</span>
-          <span class="exp-tag">Suspension</span>
-          <span class="exp-tag">Formula Design</span>
+          <span class="exp-tag">MATLAB</span>
+          <span class="exp-tag">MagicTyre</span>
+          <span class="exp-tag">Microsoft Excel</span>
         </div>
       </div>
     </div>
@@ -863,18 +944,86 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
     <div class="exp-item">
       <div class="exp-meta">
         <p class="exp-year">2024 – 2025</p>
-        <p class="exp-org">Liberty University<br>Theme Park Engineering</p>
+        <p class="exp-org">Liberty University<br>SAE Baja Team</p>
       </div>
       <div>
-        <h3 class="exp-title">Mechanical Lead — TPE Theme Park Competition</h3>
+        <h3 class="exp-title">Liberty University Baja SAE — Drivetrain Engineer</h3>
         <p class="exp-desc">
-          Designed and 3D-printed the gondola, seats, and lap bar restraint system for a scale pendulum amusement ride. Led stepper motor assembly, selected steel support structures, created service documentation, mechanical drawings, and the competition advertisement poster.
+          Improved drivetrain reliability, manufacturability, and overall system functionality by designing and refining drivetrain, splash guard, and fuel routing components in SolidWorks, diagnosing and tuning CVT performance using sensor-based RPM data, and restoring full system operation through gearbox and throttle integration and testing.
         </p>
         <div class="exp-tags">
-          <span class="exp-tag">3D Printing</span>
           <span class="exp-tag">SolidWorks</span>
-          <span class="exp-tag">Arduino</span>
-          <span class="exp-tag">Mechanical Design</span>
+          <span class="exp-tag">Microsoft Excel</span>
+          <span class="exp-tag">MATLAB</span>
+          <span class="exp-tag">CVT Testing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2024 – 2025</p>
+        <p class="exp-org">Liberty University<br>Engineering Missions and Research Team</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Liberty University Engineering Missions and Research Team — Team Member</h3>
+        <p class="exp-desc">
+          Improved reliability and functionality of assistive equipment, supported industry collaboration to secure external projects and resources, and enhanced team engineering output through troubleshooting, testing, and implementation of solutions for student-focused engineering initiatives.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">Troubleshooting</span>
+          <span class="exp-tag">Systems Testing</span>
+          <span class="exp-tag">Project Collaboration</span>
+          <span class="exp-tag">Mechanical Repair</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VOLUNTEER -->
+<section id="volunteer">
+  <p class="section-label reveal">Giving Back</p>
+  <h2 class="section-title reveal">Volunteer</h2>
+  <div class="experience-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2020 – Present</p>
+        <p class="exp-org">Love of Christ Church<br>Live Production</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Love of Christ Church — Live Production Volunteer</h3>
+        <p class="exp-desc">
+          Supported Love of Christ Church live production by operating cameras, programming lighting systems, and managing live graphics for in-person and online services serving large congregations.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">Camera Operation</span>
+          <span class="exp-tag">Lighting Control</span>
+          <span class="exp-tag">Live Graphics</span>
+          <span class="exp-tag">Live Production</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <p class="exp-year">2024 – Present</p>
+        <p class="exp-org">Liberty University<br>Recruitment & Outreach</p>
+      </div>
+      <div>
+        <h3 class="exp-title">Liberty University — Recruitment & Outreach Volunteer</h3>
+        <p class="exp-desc">
+          Supported Liberty University recruitment and outreach initiatives by assisting with CFAW event setup and teardown, welcoming prospective students and families, participating in Calvary Chapel landscaping projects, and managing Liberty Champion newspaper distribution across campus.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">Event Setup</span>
+          <span class="exp-tag">Student Engagement</span>
+          <span class="exp-tag">Landscaping Service</span>
+          <span class="exp-tag">Media Distribution</span>
         </div>
       </div>
     </div>
@@ -945,7 +1094,7 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
         <img src="https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Crank%20Shaft.png" alt="Formula Crankshaft" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🏎️</div>'">
       </div>
       <div class="card-body">
-        <p class="card-cat">Formula EMRC · Powertrain</p>
+        <p class="card-cat">Formula SAE · Powertrain</p>
         <h3 class="card-title">Formula Powertrain Components</h3>
         <p class="card-desc">SolidWorks modeling of crankshaft, transmission shafts, clutch basket, friction plates, and suspension steering shaft.</p>
       </div>
@@ -1068,7 +1217,7 @@ const projects = {
       'Diagnosed and resolved throttle response, gearbox, and fuel delivery issues',
       'Research documentation on drivetrain material selection'
     ],
-    tools: ['SolidWorks', 'CVT Tuning Tools', 'Excel', 'MS Word'],
+    tools: ['SolidWorks', 'Microsoft Excel', 'MATLAB', 'CVT Testing'],
     team: 'Liberty University Baja SAE Team · Zach Sun (co-researcher)',
     period: '2024 – 2025',
     links: [
@@ -1086,17 +1235,17 @@ const projects = {
     title: 'Pendulum Amusement Ride Model',
     img: 'https://github.com/user-attachments/assets/6b1bacda-bb7a-4221-81ea-21e0d7a67152',
     overview: `Designed and built a scale model of a pendulum amusement ride for Liberty University's Theme Park Engineering competition. The ride incorporated dual stepper motors, a 3D-printed gondola with seating and lap bar restraints, a steel frame, and a concrete base — simulating real-world engineering constraints for theme park ride design.`,
-    body: `The project required integrating mechanical design with electrical control systems. I was responsible for the full mechanical build: modeling and 3D printing the gondola, seats, and lap bar mechanisms, then leading the assembly of the stepper motors. I also selected the steel structural members and base materials, and handled all service documentation, mechanical drawings, and the competition advertisement poster. Arduino control code was developed by teammates Aaron and Stephen Dooley.`,
+    body: `The project required integrating mechanical design with electrical control systems. As Design Team Lead and Project Manager, I was responsible for the full mechanical build: modeling and 3D printing the gondola, seats, and lap bar mechanisms, then leading the assembly of the stepper motors. I also selected the steel structural members and base materials, validated structural integrity through FEA simulations and MATLAB-based force analysis aligned with ASTM standards, and handled all service documentation, mechanical drawings, and the competition advertisement poster. Arduino control code was developed by teammates Aaron and Stephen Dooley.`,
     contributions: [
       'Designed and 3D printed gondola, seats, and lap bar restraint system',
       'Led stepper motor assembly and integration',
       'Selected and implemented steel support beams and concrete base',
-      'Testing and validation of motor behavior under load',
+      'Validated structural integrity and rider safety via FEA and MATLAB force analysis aligned with ASTM standards',
       'Service documentation, SolidWorks drawings, and competition poster'
     ],
-    tools: ['SolidWorks', '3D Printing', 'Arduino (team)', 'MS Word', 'Excel'],
+    tools: ['SolidWorks', 'ANSYS', 'MATLAB', 'ASTM F2291 Documentation'],
     team: 'Team of 7 — Aaron & Stephen Dooley (Arduino), Bernard Anderson (electronics), Brian Earls (CAD), Adrian Jones & Elliot (structure)',
-    period: '2024 – 2025',
+    period: '2024 – Present',
     links: [
       { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Pendulum-Ride-Model' },
       { label: 'Competition Video', url: 'https://go.screenpal.com/watch/cTjh2anIdFB' }
@@ -1130,20 +1279,21 @@ const projects = {
     ]
   },
   formula: {
-    cat: 'Formula EMRC · Powertrain & Suspension',
+    cat: 'Formula SAE · Powertrain & Suspension',
     title: 'Formula Powertrain & Suspension Components',
     img: 'https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Crank%20Shaft.png',
-    overview: `As a Suspension and Powertrain Engineer on Liberty University's Formula Competition Team, I designed and modeled the vehicle's core powertrain and suspension components in SolidWorks, ensuring manufacturable geometry, proper tolerances, and clean assembly fit within the full vehicle package.`,
-    body: `I modeled all major powertrain components — crankshaft, transmission input and output shafts, friction plates, steel disks, clutch basket, and the drivetrain pump assembly — while also designing the steering shaft for the suspension subsystem. Each component was designed with real manufacturing constraints in mind, including packaging within the chassis and cross-system compatibility with adjacent subsystems.`,
+    overview: `As a Suspension and Powertrain Engineer on Liberty University's Formula SAE Competition Team, I designed and modeled the vehicle's core powertrain and suspension components in SolidWorks, ensuring manufacturable geometry, proper tolerances, and clean assembly fit within the full vehicle package.`,
+    body: `I developed detailed powertrain and suspension system models in SolidWorks — including the crankshaft, transmission input and output shafts, friction plates, steel disks, clutch basket, drivetrain pump assembly, and the steering shaft for suspension integration. I also improved performance analysis by processing tire data in MATLAB and generating visual insights in MagicTyre, with each component designed around real manufacturing constraints, chassis packaging, and cross-system compatibility.`,
     contributions: [
       'Crankshaft SolidWorks model with accurate geometry and tolerances',
       'Transmission input and output shaft design',
       'Friction plate, steel disk, and clutch basket assembly',
       'Drivetrain pump assembly modeling',
-      'Steering shaft design for suspension integration'
+      'Steering shaft design for suspension integration',
+      'Tire data processing in MATLAB with visual insights generated in MagicTyre'
     ],
-    tools: ['SolidWorks', 'GD&T', 'MS Word'],
-    team: 'Liberty University Formula EMRC Team',
+    tools: ['SolidWorks', 'MATLAB', 'MagicTyre', 'Microsoft Excel'],
+    team: 'Liberty University Formula SAE Team',
     period: '2024 – 2025',
     links: [
       { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Formula-Competition-Team' }
@@ -1167,7 +1317,7 @@ const projects = {
       'Straight Length Annealer oxidation study correlating process parameters to tube quality',
       'Process improvement and downtime reduction analysis'
     ],
-    tools: ['Python', 'Machine Vision', 'Quality Engineering', 'Excel'],
+    tools: ['SolidWorks', 'Excel', 'PLC Programming', 'AI Process Improvement'],
     team: 'HandyTube Quality Engineering Team',
     period: '2024 – Present',
     links: [],
