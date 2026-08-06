@@ -1029,7 +1029,23 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
   <div class="projects-grid">
 
     <!-- Card 1 — Large -->
-    <div class="project-card large reveal from-left" data-project="pendulum">
+    <div class="project-card large reveal from-left" data-project="rec2026">
+      <div class="card-img-wrap">
+        <img src="https://raw.githubusercontent.com/Josiah-Mechy/Ride-Engineering-Competition-2026/main/Complete%20SolidWorks%20Track%20Assembly.png" alt="Joop Adventures: Jungle Escape Track Assembly" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🎢</div>'">
+      </div>
+      <div class="card-body">
+        <p class="card-cat">TPE Competition · Mechanical Design</p>
+        <h3 class="card-title">Ride Engineering Competition 2026 — Joop Adventures: Jungle Escape</h3>
+        <p class="card-desc">Competition-scale tabletop roller coaster with a chain lift hill, 3D-printed track, banked turn, and magnetic braking, built as Design Team Lead over an 11-member team.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-tools">SolidWorks · ANSYS · MATLAB</span>
+        <div class="card-arrow">↗</div>
+      </div>
+    </div>
+
+    <!-- Card 2 — Medium -->
+    <div class="project-card medium reveal from-right" data-project="pendulum">
       <div class="card-img-wrap">
         <img src="https://github.com/user-attachments/assets/6b1bacda-bb7a-4221-81ea-21e0d7a67152" alt="Pendulum Ride Model" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🎡</div>'">
       </div>
@@ -1044,7 +1060,7 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
       </div>
     </div>
 
-    <!-- Card 2 — Medium -->
+    <!-- Card 3 — Medium -->
     <div class="project-card medium reveal from-right" data-project="formula">
       <div class="card-img-wrap">
         <img src="https://raw.githubusercontent.com/Josiah-Mechy/Formula-Competition-Team/main/Crank%20Shaft.png" alt="Formula Crankshaft" onerror="this.parentElement.innerHTML='<div class=\'img-placeholder\'>🏎️</div>'">
@@ -1204,6 +1220,30 @@ const projects = {
       'https://raw.githubusercontent.com/Josiah-Mechy/BAJA-SAE-Drivetrain-Engineering/main/CVT%20Testing%20Data%202.png'
     ]
   },
+  rec2026: {
+    cat: 'TPE Competition · Mechanical Design',
+    title: 'Ride Engineering Competition 2026 — Joop Adventures: Jungle Escape',
+    img: 'https://raw.githubusercontent.com/Josiah-Mechy/Ride-Engineering-Competition-2026/main/Complete%20SolidWorks%20Track%20Assembly.png',
+    overview: `Joop Adventures: Jungle Escape is a competition-scale tabletop roller coaster designed, analyzed, manufactured, and validated for the 2026 Ride Engineering Competition. The project required developing a portable amusement attraction that met strict engineering constraints for rider safety, structural integrity, manufacturability, reliability, and operational performance.`,
+    body: `As Design Team Lead and Project Manager, I directed the mechanical design process, coordinated project milestones, and led the engineering validation of the ride across an 11-member team. I handled the majority of the CAD development in SolidWorks, engineering calculations in MATLAB, finite element analysis in ANSYS, and technical documentation needed to take the project from concept to competition — including the chain lift hill, banked helix, magnetic braking section, lap bar restraint system, and modular support structure.`,
+    contributions: [
+      'Led the complete SolidWorks ride layout, track, and lap bar restraint design',
+      'Performed ride dynamics calculations: velocity, normal/lateral/resultant force, and G-force analysis',
+      'Ran ANSYS FEA for support column stress, buckling, fatigue, and factor of safety',
+      'Calculated chain lift, sprocket, motor torque/power, and magnetic braking forces',
+      'Directed design reviews, manufacturing readiness, and an 11-member engineering team'
+    ],
+    tools: ['SolidWorks', 'ANSYS', 'MATLAB'],
+    team: 'TEA@LU — Team of 11 members',
+    period: '2025 – 2026',
+    links: [
+      { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Ride-Engineering-Competition-2026' },
+      { label: 'Electrical & Controls Repo', url: 'https://github.com/TrialsVol2/2025-2026-Rollercoaster-SRCS' }
+    ],
+    gallery: [
+      'https://raw.githubusercontent.com/Josiah-Mechy/Ride-Engineering-Competition-2026/main/Complete%20SolidWorks%20Track%20Assembly.png'
+    ]
+  },
   pendulum: {
     cat: 'TPE Competition · Mechanical Design',
     title: 'Ride Engineering Competition 2025',
@@ -1218,8 +1258,8 @@ const projects = {
       'Service documentation, SolidWorks drawings, and competition poster'
     ],
     tools: ['SolidWorks', 'ANSYS', 'MATLAB'],
-    team: 'Team of 7 — Aaron & Stephen Dooley (Arduino), Bernard Anderson (electronics), Brian Earls (CAD), Adrian Jones & Elliot (structure)',
-    period: '2024 – Present',
+    team: 'TEA@LU — Team of 7 members: Aaron & Stephen Dooley (Arduino), Bernard Anderson (electronics), Brian Earls (CAD), Adrian Jones & Elliot (structure)',
+    period: '2024 – 2025',
     links: [
       { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Pendulum-Ride-Model' },
       { label: 'Competition Video', url: 'https://go.screenpal.com/watch/cTjh2anIdFB' },
