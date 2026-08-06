@@ -469,7 +469,8 @@ section {
 .modal-panel {
   position: relative;
   width: 100%;
-  max-height: 90vh;
+  height: 100vh;
+  height: 100dvh;
   background: var(--surface);
   border-top: 1px solid var(--border2);
   overflow-y: auto;
@@ -477,11 +478,18 @@ section {
   transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
 }
 .modal-overlay.active .modal-panel { transform: translateY(0); }
-.modal-inner { max-width: 1100px; margin: 0 auto; padding: 60px 6%; }
-.modal-header {
+.modal-close-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 20px 6% 0;
+  pointer-events: none;
+}
+.modal-close-bar .modal-close { pointer-events: all; }
+.modal-inner { max-width: 1100px; margin: 0 auto; padding: 24px 6% 60px; }
+.modal-header {
   margin-bottom: 48px;
 }
 .modal-cat {
@@ -500,7 +508,9 @@ section {
   width: 44px;
   height: 44px;
   border: 1px solid var(--border2);
-  background: transparent;
+  background: rgba(17,17,17,0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: var(--text);
   cursor: pointer;
   font-size: 1.2rem;
@@ -1166,6 +1176,9 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal-backdrop" id="modal-backdrop"></div>
   <div class="modal-panel" id="modal-panel">
+    <div class="modal-close-bar">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+    </div>
     <div class="modal-inner" id="modal-inner">
       <!-- Content injected by JS -->
     </div>
@@ -1238,6 +1251,7 @@ const projects = {
     period: '2025 – 2026',
     links: [
       { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Ride-Engineering-Competition-2026' },
+      { label: 'Competition Video', url: 'https://github.com/Josiah-Mechy/Ride-Engineering-Competition-2026/blob/main/Video.mp4' },
       { label: 'Theme Park Engineering at Liberty University | LinkedIn', url: 'https://www.linkedin.com/company/theme-park-engineering-at-liberty-university/posts/?feedView=all&viewAsMember=true' }
     ],
     gallery: [
@@ -1356,7 +1370,6 @@ function openModal(key) {
         <p class="modal-cat">${p.cat}</p>
         <h2 class="modal-title">${p.title}</h2>
       </div>
-      <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
     </div>
     ${heroImg}
     <div class="modal-grid">
@@ -1388,8 +1401,6 @@ function openModal(key) {
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
   panel.scrollTop = 0;
-
-  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
 }
 
 function closeModal() {
@@ -1398,6 +1409,7 @@ function closeModal() {
 }
 
 backdrop.addEventListener('click', closeModal);
+document.getElementById('modal-close-btn').addEventListener('click', closeModal);
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
