@@ -327,6 +327,27 @@ section {
   color: var(--muted);
   line-height: 1.7;
 }
+.exp-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.exp-bullets li {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.7;
+  padding-left: 20px;
+  position: relative;
+}
+.exp-bullets li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 1px;
+  color: var(--accent);
+  font-size: 0.85rem;
+}
 .exp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .exp-tag {
   padding: 4px 12px;
@@ -852,14 +873,16 @@ footer p { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; }
       </div>
       <div>
         <h3 class="exp-title">HandyTube — Quality Engineering Intern</h3>
-        <p class="exp-desc">
-          Improved production compliance, training effectiveness, and process consistency by standardizing over 300 work and training documents across aerospace manufacturing machines; reduced operational costs by approximately $100K/month through SolidWorks-designed 3D-printed components and an automated PLC-controlled soap titration system; and increased capacity utilization by identifying downtime drivers through facility-wide safety audits and operational analysis of the FGT Straightener.
-        </p>
+        <ul class="exp-bullets">
+          <li>Improved production compliance and operator training effectiveness, as measured by more consistent manufacturing processes, by developing and revising standardized work instructions, visual work instructions, and training materials for aerospace manufacturing processes across all machines in the facility — correcting and standardizing over 300 outdated or inconsistent documents.</li>
+          <li>Reduced operational costs and improved process efficiency, as measured by approximately $100K/month in cost savings, by designing and fabricating custom 3D-printed components in SolidWorks for the ID Degreaser and Blowout machines and programming an automated soap titration system using DirectSOFT6 Ladder Logic PLCs, improving safety and process consistency.</li>
+          <li>Improved capacity utilization and reduced downtime, as measured by identified downtime drivers, by conducting facility-wide safety audits and performing operational analysis of the FGT Straightener through field data collection.</li>
+        </ul>
         <div class="exp-tags">
           <span class="exp-tag">SolidWorks</span>
           <span class="exp-tag">Excel</span>
-          <span class="exp-tag">PLC Programming</span>
-          <span class="exp-tag">AI Process Improvement</span>
+          <span class="exp-tag">DirectSOFT6 PLC Programming</span>
+          <span class="exp-tag">Safety Audits</span>
         </div>
       </div>
     </div>
