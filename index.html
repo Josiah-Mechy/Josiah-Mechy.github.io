@@ -635,15 +635,6 @@ section {
   background: var(--surface2);
 }
 
-.modal-video {
-  width: 100%;
-  max-height: 620px;
-  margin-top: 12px;
-  background: #000;
-  border: 1px solid var(--border);
-  display: block;
-}
-
 /* ── CONTACT ── */
 .contact-grid {
   display: grid;
@@ -1269,7 +1260,6 @@ const projects = {
       'Research documentation on drivetrain material selection'
     ],
     tools: ['SolidWorks', 'Excel', 'CVT Tuning'],
-    team: 'Liberty University Baja SAE Team · Zach Sun (co-researcher)',
     period: '2024 – 2025',
     links: [
       { label: 'Full Vehicle Assembly', url: 'https://github.com/Josiah-Mechy/BAJA-SAE-Drivetrain-Engineering/blob/main/SOLIDWORKS%20Frame.png' },
@@ -1295,7 +1285,6 @@ const projects = {
       'Directed design reviews, manufacturing readiness, and an 11-member engineering team'
     ],
     tools: ['SolidWorks', 'ANSYS', 'MATLAB'],
-    team: 'TEA@LU — Team of 11 members',
     period: '2025 – 2026',
     links: [
       { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Ride-Engineering-Competition-2026' },
@@ -1321,7 +1310,6 @@ const projects = {
       'Service documentation, SolidWorks drawings, and competition poster'
     ],
     tools: ['SolidWorks', 'ANSYS', 'MATLAB'],
-    team: 'TEA@LU — Team of 7 members: Aaron & Stephen Dooley (Arduino), Bernard Anderson (electronics), Brian Earls (CAD), Adrian Jones & Elliot (structure)',
     period: '2024 – 2025',
     links: [
       { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Pendulum-Ride-Model' },
@@ -1346,12 +1334,11 @@ const projects = {
       'MATLAB thermodynamic performance analysis (with Cyrus Harris)'
     ],
     tools: ['SolidWorks', 'MATLAB', '3D Printing'],
-    team: 'Cyrus Harris (MATLAB & presentation)',
     period: '2024 – 2025',
     links: [
-      { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car' }
+      { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car' },
+      { label: 'Proof of Life Video', url: 'https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car/blob/main/Stirling%20Engine%20Car%20Proof%20of%20Life%20Video.MOV' }
     ],
-    video: 'https://raw.githubusercontent.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car/main/Stirling%20Engine%20Car%20Proof%20of%20Life%20Video.MOV',
     gallery: [
       'https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car/raw/main/Stirling%20Engine%20Car%20-%20SolidWorks%20Assembly.png',
       'https://github.com/Josiah-Mechy/Thermodynamics-II-Stirling-Engine-Car/raw/main/Stirling%20Engine%20Car%20-%20SolidWorks%20Drawing.png'
@@ -1372,7 +1359,6 @@ const projects = {
       'Tire data processing in MATLAB with visual insights generated in MagicTyre'
     ],
     tools: ['SolidWorks', 'MATLAB', 'MagicTyre'],
-    team: 'Liberty University Formula SAE Team',
     period: '2024 – 2025',
     links: [
       { label: 'GitHub Repo', url: 'https://github.com/Josiah-Mechy/Formula-Competition-Team' },
@@ -1413,15 +1399,6 @@ function openModal(key) {
     ? `<img src="${p.img}" alt="${p.title}" class="modal-hero-img" onerror="this.style.display='none'">`
     : '';
 
-  const videoHTML = p.video
-    ? `<h4>Proof of Life</h4>
-       <video class="modal-video" controls preload="metadata">
-         <source src="${p.video}" type="video/quicktime">
-         Your browser may not support direct MOV playback.
-         <a href="${p.video}" target="_blank" class="modal-link">Open the video →</a>
-       </video>`
-    : '';
-
   inner.innerHTML = `
     <div class="modal-header">
       <div>
@@ -1436,7 +1413,6 @@ function openModal(key) {
         <p>${p.body}</p>
         <h4>My Contributions</h4>
         <ul>${p.contributions.map(c => `<li>${c}</li>`).join('')}</ul>
-        ${videoHTML}
         ${galleryHTML ? '<h4>Gallery</h4>' + galleryHTML : ''}
         ${linksHTML}
       </div>
